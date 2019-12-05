@@ -46,13 +46,13 @@ gcloud auth configure-docker
 #### Chicken end egg problem
 IMPARTENT: to create terraform backend, first create Storage bucket (storage_bucket.tf), without backend.tf (TRICK `mv -v backend.tf backend.tf.bkp` and then `mv -v backend.tf.bkp backend.tf`)
 
-## STEP 2: Create k8s cluster with terraform
-## STEP 3: Create k8s nodepool with terraform
+* STEP 2: Create k8s cluster with terraform
+* STEP 3: Create k8s nodepool with terraform
 <!-- fronend for Flask app and backend for postgres pods--> 
-## STEP 4: Create k8s deployments with terraform
+* STEP 4: Create k8s deployments with terraform
 <!-- frontend will be advertised to outside world as HTTPS LoadBalancer and postgres will use only ClusterIP and only available to pods with in the Cluster -->
-## STEP 5: Create k8s services with terraform
-## STEP 6: destroy terraform
+* STEP 5: Create k8s services with terraform
+* STEP 6: destroy terraform
 
 NOTE: Here you may face many problems with terraform versions and provider version.
 NOTE: This terraform code is done with `Terraform v0.12.1`
