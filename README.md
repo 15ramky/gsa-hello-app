@@ -1,4 +1,8 @@
-# *GroundSpeed Analytics Hello World App*
+AUTHOR  : Ramakrishna Kothamasu
+EMAIL   : krishna.ubuntu@gmail.com  
+VERSION : 0.0.1 (Draft)
+
+# *GroundSpeed Analytics Hello World App8
 This page describes how to run this hello application
 
 ## prerequasites
@@ -52,3 +56,5 @@ IMPARTENT: to create terraform backend, first create Storage bucket (storage_buc
 
 NOTE: Here you may face many problems with terraform versions and provider version.
 NOTE: This terraform code is done with `Terraform v0.12.1`
+
+
