@@ -1,49 +1,40 @@
-import os
-from flask import Flask
-from flask import request
-from flask_sqlalchemy import SQLAlchemy
-from config import Config
-import json
+from flask import Flask, request, render_template
+import socket
+import ipaddress
 
 app = Flask(__name__)
-app.config.from_object('config.Config')
-db = SQLAlchemy(app)
 
+#least prefix legth in GCP
+LEAST_PREFIX_LENGTH=29
 
-class Message(db.Model):
-    __tablename__ = 'message'
+all_ip_subnets = []
 
-    id = db.Column(db.Integer, primary_key=True)
-    text = db.Column(db.String())
+def cal_subnets(ipsubnet):
+    ipsubnet = ipaddress.IPv4Network(ipsubnet)
+    prefix_len = ipsubnet.prefixlen
+    if prefix_len == LEAST_PREFIX_LENGTH:
+        if ipsubnet not in all_ip_subnets:
+            all_ip_subnets.append(ipsubnet)
+    else:
+        for each_subnet in ipaddress.ip_network(ipsubnet).subnets():
+            if each_subnet not in all_ip_subnets:
+                all_ip_subnets.append(each_subnet)
+            cal_subnets(each_subnet)
 
-    def __repr__(self):
-        return '<id {}>'.format(self.id)
+@app.route("/", methods=['GET'])
+def index():
+    return render_template('index.html')
 
+@app.route('/', methods=['POST'])
+def my_form_post():
+    cal_subnets(request.form['text'])
+    result_data = "<br>"
+    for each in all_ip_subnets:
+        result_data = result_data + " SUBNET: " + each.compressed \
+                      + " netmask: " + each.netmask.compressed \
+                      + " broadcast address: " + each.broadcast_address.compressed + "<br>"
+    html = "<b>All Possible subnets are: </b> {result_data}<br/>"
+    return html.format(result_data=result_data)
 
-@app.route('/healthcheck')
-def health_check():
-    return json.dumps({'status': 'OK'})
-
-@app.route('/message', methods = ['POST'])
-def message_post():
-    r_json = request.get_json()
-    if 'message' in r_json:
-        posted_message = r_json['message']
-        message = Message(text=posted_message)
-        db.session.add(message)
-        db.session.commit()
-        return json.dumps({'status': 'OK', 'message_id': message.id})
-    return json.dumps({'status': 'FAIL', 'error': 'must include json in post with a "message" key'})
-
-@app.route('/message/<message_id>', methods = ['GET'])
-def message_get(message_id):
-    try:
-        message = db.session.query(Message).filter(Message.id == message_id).one()
-        print(message)
-        return json.dumps({'status': 'OK', 'message_text': message.text})
-    except:
-        return json.dumps({'status': 'FAIL', 'error': 'message_id({}) must exist'.format(message_id)})
-
-if __name__ == '__main__':
-    db.create_all()
-    app.run('0.0.0.0', 80)
+if __name__ == "__main__":
+    app.run(debug=True, host="0.0.0.0")

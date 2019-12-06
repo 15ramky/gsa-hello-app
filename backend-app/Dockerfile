@@ -8,7 +8,7 @@ ENV POSTGRES_USER admin
 
 # TODO(me) : Not a best ptractice to keep password in vcs, change later
 ENV POSTGRES_PASSWORD password
-ENV POSTGRES_DB tempdb
+ENV POSTGRES_DB groundspeed_devops
 
 # TODO(me) : not needed for Kubernetes - delete leter
 # EXPOSE 5432

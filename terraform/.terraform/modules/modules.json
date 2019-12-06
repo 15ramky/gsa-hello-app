@@ -1,0 +1,1 @@
+{"Modules":[{"Key":"backend","Source":"./modules/deployments","Dir":"modules/deployments"},{"Key":"backend-service","Source":"./modules/services","Dir":"modules/services"},{"Key":"frontend","Source":"./modules/deployments","Dir":"modules/deployments"},{"Key":"frontend-service","Source":"./modules/services","Dir":"modules/services"},{"Key":"","Source":"","Dir":"."}]}

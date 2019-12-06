@@ -1,4 +1,4 @@
-resource "kubernetes_deployment" "front-end-app" {
+resource "kubernetes_deployment" "k8s-deployment" {
   metadata {
     labels = {
       app = "${var.deploy_name}"

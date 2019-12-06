@@ -12,7 +12,7 @@ RUN pip install --trusted-host pypi.python.org -r requirements.txt
 
 ENTRYPOINT [ "python" ]
 
-ENV db_service_ip 10.60.9.125
+ENV DATABASE_URL "postgresql://postgres:postgres@10.59.243.249:5432/groundspeed_devops"
 
 # EXPOSE 5000
 
