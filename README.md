@@ -3,12 +3,9 @@ EMAIL   : krishna.ubuntu@gmail.com \
 VERSION : 0.0.1 (Draft) 
 
 # *GroundSpeed Analytics Hello World App*
-This page describes how to run this hello application on GCP gke
+This page describes how to run this hello application on GCP gke. This code is tested on GCP, but it should work with other public clouds with minimal changes (except terraform gcp code).
 
-## terraform/.terraform/plugins/darwin_amd64/terraform-provider-kubernetes_v1.10.0_x4
-This code is testes on GCP, but it should work with other public clouds with minimal changes (except terraform code)
-
-### Creating service account with GCP 
+### Creating service account on GCP 
 * STEP 1: Creating service account for terraform \
           gcloud iam service-accounts create terraform
 * STEP 2: Add sufficiant roles to the service account \
@@ -75,22 +72,11 @@ Terraform will perform the following actions:
       + bucket_policy_only = (known after apply)
       + force_destroy      = false
       + id                 = (known after apply)
-      + location           = "US"
-      + name               = "gsa-demo-app-gcp"
-      + project            = (known after apply)
-      + self_link          = (known after apply)
-      + storage_class      = "STANDARD"
-      + url                = (known after apply)
-
-      + versioning {
-          + enabled = true
-        }
-    }
-
-Plan: 1 to add, 0 to change, 0 to destroy.
-
-Do you want to perform these actions?
-  Terraform will perform the actions described above.
+.....
+.....
+.....
+.....
+.....
   Only 'yes' will be accepted to approve.
 
   Enter a value: yes
