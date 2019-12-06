@@ -30,9 +30,9 @@ gcloud auth configure-docker
 
 * STEP 3: Verify the images are listed in your GCP project (gcloud container --help)
 
-## Here the Dragons come --< --< --<
+## Here the Dragons come :dragon:--< :dragon:--< :dragon:--<
 
-## *terraform*
+## *terraform*   :sweat_smile::sweat_smile::sweat_smile::sweat_smile:
 
 ### IaaC --> Plan is to try to deploy all the Infrastructure with terraform only
 
@@ -212,7 +212,8 @@ krishna@RamakrishnasMBP:~/to_gsa/gsa-hello-app/terraform/gcp$ 💃🏏🍎
 
 ```
 
-![GCP Cluster](https://drive.google.com/file/d/1OMUfvLjNGiQESVwGYlF0kA0z8eu8wS78/view?usp=sharing)
+![GCP Cluster](https://drive.google.com/uc?export=view&id=1OMUfvLjNGiQESVwGYlF0kA0z8eu8wS78)
+
 
 <!-- fronend for Flask app and backend for postgres pods--> 
 * STEP 4: Create backend deployment with terraform
