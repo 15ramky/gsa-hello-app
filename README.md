@@ -2,8 +2,8 @@ AUTHOR  : Ramakrishna Kothamasu
 EMAIL   : krishna.ubuntu@gmail.com  
 VERSION : 0.0.1 (Draft)
 
-# *GroundSpeed Analytics Hello World App8
-This page describes how to run this hello application
+# *GroundSpeed Analytics Hello World App*
+This page describes how to run this hello application on GCP gke
 
 ## prerequasites
 This code is testes on GCP, but it should work with other public clouds with minimal changes (except terraform code)
@@ -39,7 +39,7 @@ gcloud auth configure-docker
 
 ## *terraform*
 
-### I am trying to deploy the application with terraform (IaaC)
+### IaaC --> Plan is to try to deploy all the Infrastructure with terraform (no GUI touch at all)
 
 * STEP 1: create backend bucket for terraform state file
 
