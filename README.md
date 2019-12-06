@@ -5,7 +5,7 @@ VERSION : 0.0.1 (Draft)
 # *GroundSpeed Analytics Hello World App*
 This page describes how to run this hello application on GCP gke
 
-## pre-req
+## terraform/.terraform/plugins/darwin_amd64/terraform-provider-kubernetes_v1.10.0_x4
 This code is testes on GCP, but it should work with other public clouds with minimal changes (except terraform code)
 
 ### Creating service account with GCP 
@@ -20,14 +20,12 @@ This code is testes on GCP, but it should work with other public clouds with min
  
  NOTE: I used my Mac conputer for demo purposes, it may not work on your computer
 
-## Creating Docker containers and push them to gcr.io as privite images into you project.
+### Creating Docker containers and push them to gcr.io as privite images into you project.
 * STEP 1: Creating the docker build for both frontend and backend application with Dockerfiles \
-
-Note: you can use docker-cli or other cloud build tools to build the docker image\
+Note: one can use docker-cli or other cloud build tools to build the docker image\
 
 * STEP 2: Pushing the docker built images to gcr.io in your project\
-          Example: docker build -t gcr.io/gsa-demo-app/front-end-app:v1 .
-
+          Example: docker build -t gcr.io/gsa-demo-app/front-end-app:v1 .m
 NOTE: Do not forget to configure the docker with gcloud 
 ```sh
 gcloud auth configure-docker
@@ -39,7 +37,7 @@ gcloud auth configure-docker
 
 ## *terraform*
 
-### IaaC --> Plan is to try to deploy all the Infrastructure with terraform
+### IaaC --> Plan is to try to deploy all the Infrastructure with terraform only
 
 * STEP 1: create backend bucket for terraform state file
 ```sh
@@ -51,12 +49,12 @@ Initializing provider plugins...
 ...
 ...
 ```
-Look for all the teraform resources that to be created.
 
+Look for all the teraform resources that to be created.
 ```sh
 krishna@RamakrishnasMBP:~/to_gsa/gsa-hello-app/terraform/gcp$ 💃🏏🍎🌴 ☕️ --> terraform plan | grep -i "will be"
 The refreshed state will be used to calculate this plan, but will not be
-  # google_container_cluster.gsa-demo-cluster will be created
+  # ._container_cluster.gsa-demo-cluster will be created
   # google_container_node_pool.gsa-demo-cluster-node-poll will be created
   # google_storage_bucket.state-file-storage-gcp will be created
   # google_storage_bucket.state-file-storage-k8s will be created
@@ -216,182 +214,9 @@ Terraform will perform the following actions:
       + initial_node_count          = 3
       + instance_group_urls         = (known after apply)
       + location                    = "us-central1-a"
-      + logging_service             = "logging.googleapis.com/kubernetes"
-      + master_version              = (known after apply)
-      + monitoring_service          = "monitoring.googleapis.com/kubernetes"
-      + name                        = "demo-cluster"
-      + network                     = "projects/gsa-demo-app/global/networks/default"
-      + node_locations              = (known after apply)
-      + node_version                = (known after apply)
-      + project                     = "gsa-demo-app"
-      + resource_labels             = {
-          + "project" = "sbx"
-        }
-      + services_ipv4_cidr          = (known after apply)
-      + subnetwork                  = (known after apply)
-
-      + addons_config {
-          + horizontal_pod_autoscaling {
-              + disabled = false
-            }
-
-          + http_load_balancing {
-              + disabled = false
-            }
-
-          + network_policy_config {
-              + disabled = true
-            }
-        }
-
-      + authenticator_groups_config {
-          + security_group = (known after apply)
-        }
-
-      + cluster_autoscaling {
-          + enabled = true
-
-          + auto_provisioning_defaults {
-              + service_account = "default"
-            }
-
-          + resource_limits {
-              + maximum       = 16
-              + minimum       = 1
-              + resource_type = "cpu"
-            }
-          + resource_limits {
-              + maximum       = 32
-              + minimum       = 1
-              + resource_type = "memory"
-            }
-        }
-
-      + master_auth {
-          + client_certificate     = (known after apply)
-          + client_key             = (sensitive value)
-          + cluster_ca_certificate = (known after apply)
-          + password               = (sensitive value)
-          + username               = (known after apply)
-
-          + client_certificate_config {
-              + issue_client_certificate = (known after apply)
-            }
-        }
-
-      + network_policy {
-          + enabled  = (known after apply)
-          + provider = (known after apply)
-        }
-
-      + node_config {
-          + disk_size_gb      = (known after apply)
-          + disk_type         = (known after apply)
-          + guest_accelerator = (known after apply)
-          + image_type        = (known after apply)
-          + labels            = (known after apply)
-          + local_ssd_count   = (known after apply)
-          + machine_type      = (known after apply)
-          + metadata          = (known after apply)
-          + min_cpu_platform  = (known after apply)
-          + oauth_scopes      = (known after apply)
-          + preemptible       = (known after apply)
-          + service_account   = (known after apply)
-          + tags              = (known after apply)
-          + taint             = (known after apply)
-
-          + sandbox_config {
-              + sandbox_type = (known after apply)
-            }
-
-          + shielded_instance_config {
-              + enable_integrity_monitoring = (known after apply)
-              + enable_secure_boot          = (known after apply)
-            }
-
-          + workload_metadata_config {
-              + node_metadata = (known after apply)
-            }
-        }
-
-      + node_pool {
-          + initial_node_count  = (known after apply)
-          + instance_group_urls = (known after apply)
-          + max_pods_per_node   = (known after apply)
-          + name                = (known after apply)
-          + name_prefix         = (known after apply)
-          + node_count          = (known after apply)
-          + version             = (known after apply)
-
-          + autoscaling {
-              + max_node_count = (known after apply)
-              + min_node_count = (known after apply)
-            }
-
-          + management {
-              + auto_repair  = (known after apply)
-              + auto_upgrade = (known after apply)
-            }
-
-          + node_config {
-              + disk_size_gb      = (known after apply)
-              + disk_type         = (known after apply)
-              + guest_accelerator = (known after apply)
-              + image_type        = (known after apply)
-              + labels            = (known after apply)
-              + local_ssd_count   = (known after apply)
-              + machine_type      = (known after apply)
-              + metadata          = (known after apply)
-              + min_cpu_platform  = (known after apply)
-              + oauth_scopes      = (known after apply)
-              + preemptible       = (known after apply)
-              + service_account   = (known after apply)
-              + tags              = (known after apply)
-              + taint             = (known after apply)
-
-              + sandbox_config {
-                  + sandbox_type = (known after apply)
-                }
-
-              + shielded_instance_config {
-                  + enable_integrity_monitoring = (known after apply)
-                  + enable_secure_boot          = (known after apply)
-                }
-
-              + workload_metadata_config {
-                  + node_metadata = (known after apply)
-                }
-            }
-        }
-    }
-
-Plan: 1 to add, 0 to change, 0 to destroy.
-
-Do you want to perform these actions?
-  Terraform will perform the actions described above.
-  Only 'yes' will be accepted to approve.
-
-  Enter a value: yes
-
-google_container_cluster.gsa-demo-cluster: Creating...
-google_container_cluster.gsa-demo-cluster: Still creating... [10s elapsed]
-google_container_cluster.gsa-demo-cluster: Still creating... [20s elapsed]
-google_container_cluster.gsa-demo-cluster: Still creating... [30s elapsed]
-google_container_cluster.gsa-demo-cluster: Still creating... [40s elapsed]
-google_container_cluster.gsa-demo-cluster: Still creating... [50s elapsed]
-google_container_cluster.gsa-demo-cluster: Still creating... [1m0s elapsed]
-google_container_cluster.gsa-demo-cluster: Still creating... [1m10s elapsed]
-google_container_cluster.gsa-demo-cluster: Still creating... [1m20s elapsed]
-google_container_cluster.gsa-demo-cluster: Still creating... [1m30s elapsed]
-google_container_cluster.gsa-demo-cluster: Still creating... [1m40s elapsed]
-google_container_cluster.gsa-demo-cluster: Still creating... [1m50s elapsed]
-google_container_cluster.gsa-demo-cluster: Still creating... [2m0s elapsed]
-google_container_cluster.gsa-demo-cluster: Still creating... [2m10s elapsed]
-google_container_cluster.gsa-demo-cluster: Still creating... [2m20s elapsed]
-google_container_cluster.gsa-demo-cluster: Still creating... [2m30s elapsed]
-google_container_cluster.gsa-demo-cluster: Still creating... [2m40s elapsed]
-google_container_cluster.gsa-demo-cluster: Still creating... [2m50s elapsed]
-google_container_cluster.gsa-demo-cluster: Still creating... [3m0s elapsed]
+.....
+.....
+.....
 google_container_cluster.gsa-demo-cluster: Still creating... [3m10s elapsed]
 google_container_cluster.gsa-demo-cluster: Still creating... [3m20s elapsed]
 google_container_cluster.gsa-demo-cluster: Creation complete after 3m24s [id=projects/gsa-demo-app/locations/us-central1-a/clusters/demo-cluster]
@@ -437,271 +262,10 @@ Terraform will perform the following actions:
           + min_ready_seconds         = 0
           + paused                    = false
           + progress_deadline_seconds = 600
-          + replicas                  = 1
-          + revision_history_limit    = 10
-
-          + selector {
-              + match_labels = {
-                  + "app" = "postgres-db"
-                }
-            }
-
-          + strategy {
-              + type = "RollingUpdate"
-
-              + rolling_update {
-                  + max_surge       = "25%"
-                  + max_unavailable = "25%"
-                }
-            }
-
-          + template {
-              + metadata {
-                  + generation       = 0
-                  + labels           = {
-                      + "app" = "postgres-db"
-                    }
-                  + name             = (known after apply)
-                  + resource_version = (known after apply)
-                  + self_link        = (known after apply)
-                  + uid              = (known after apply)
-                }
-
-              + spec {
-                  + active_deadline_seconds          = 0
-                  + automount_service_account_token  = false
-                  + dns_policy                       = "ClusterFirst"
-                  + host_ipc                         = false
-                  + host_network                     = false
-                  + host_pid                         = false
-                  + hostname                         = (known after apply)
-                  + node_name                        = (known after apply)
-                  + restart_policy                   = "Always"
-                  + service_account_name             = (known after apply)
-                  + share_process_namespace          = false
-                  + termination_grace_period_seconds = 30
-
-                  + container {
-                      + image                    = "gcr.io/gsa-demo-app/backend-app@sha256:a9145960734794e66d62e545685c0f4ad02ee92e208b0a77cc5c3f3e26e0c95d"
-                      + image_pull_policy        = "IfNotPresent"
-                      + name                     = "front-end-app-sha256"
-                      + stdin                    = false
-                      + stdin_once               = false
-                      + termination_message_path = "/dev/termination-log"
-                      + tty                      = false
-
-                      + resources {
-                          + limits {
-                              + cpu    = (known after apply)
-                              + memory = (known after apply)
-                            }
-
-                          + requests {
-                              + cpu    = (known after apply)
-                              + memory = (known after apply)
-                            }
-                        }
-
-                      + volume_mount {
-                          + mount_path        = (known after apply)
-                          + mount_propagation = (known after apply)
-                          + name              = (known after apply)
-                          + read_only         = (known after apply)
-                          + sub_path          = (known after apply)
-                        }
-                    }
-
-                  + image_pull_secrets {
-                      + name = (known after apply)
-                    }
-
-                  + volume {
-                      + name = (known after apply)
-
-                      + aws_elastic_block_store {
-                          + fs_type   = (known after apply)
-                          + partition = (known after apply)
-                          + read_only = (known after apply)
-                          + volume_id = (known after apply)
-                        }
-
-                      + azure_disk {
-                          + caching_mode  = (known after apply)
-                          + data_disk_uri = (known after apply)
-                          + disk_name     = (known after apply)
-                          + fs_type       = (known after apply)
-                          + read_only     = (known after apply)
-                        }
-
-                      + azure_file {
-                          + read_only   = (known after apply)
-                          + secret_name = (known after apply)
-                          + share_name  = (known after apply)
-                        }
-
-                      + ceph_fs {
-                          + monitors    = (known after apply)
-                          + path        = (known after apply)
-                          + read_only   = (known after apply)
-                          + secret_file = (known after apply)
-                          + user        = (known after apply)
-
-                          + secret_ref {
-                              + name = (known after apply)
-                            }
-                        }
-
-                      + cinder {
-                          + fs_type   = (known after apply)
-                          + read_only = (known after apply)
-                          + volume_id = (known after apply)
-                        }
-
-                      + config_map {
-                          + default_mode = (known after apply)
-                          + name         = (known after apply)
-
-                          + items {
-                              + key  = (known after apply)
-                              + mode = (known after apply)
-                              + path = (known after apply)
-                            }
-                        }
-
-                      + downward_api {
-                          + default_mode = (known after apply)
-
-                          + items {
-                              + mode = (known after apply)
-                              + path = (known after apply)
-
-                              + field_ref {
-                                  + api_version = (known after apply)
-                                  + field_path  = (known after apply)
-                                }
-
-                              + resource_field_ref {
-                                  + container_name = (known after apply)
-                                  + quantity       = (known after apply)
-                                  + resource       = (known after apply)
-                                }
-                            }
-                        }
-
-                      + empty_dir {
-                          + medium = (known after apply)
-                        }
-
-                      + fc {
-                          + fs_type      = (known after apply)
-                          + lun          = (known after apply)
-                          + read_only    = (known after apply)
-                          + target_ww_ns = (known after apply)
-                        }
-
-                      + flex_volume {
-                          + driver    = (known after apply)
-                          + fs_type   = (known after apply)
-                          + options   = (known after apply)
-                          + read_only = (known after apply)
-
-                          + secret_ref {
-                              + name = (known after apply)
-                            }
-                        }
-
-                      + flocker {
-                          + dataset_name = (known after apply)
-                          + dataset_uuid = (known after apply)
-                        }
-
-                      + gce_persistent_disk {
-                          + fs_type   = (known after apply)
-                          + partition = (known after apply)
-                          + pd_name   = (known after apply)
-                          + read_only = (known after apply)
-                        }
-
-                      + git_repo {
-                          + directory  = (known after apply)
-                          + repository = (known after apply)
-                          + revision   = (known after apply)
-                        }
-
-                      + glusterfs {
-                          + endpoints_name = (known after apply)
-                          + path           = (known after apply)
-                          + read_only      = (known after apply)
-                        }
-
-                      + host_path {
-                          + path = (known after apply)
-                          + type = (known after apply)
-                        }
-
-                      + iscsi {
-                          + fs_type         = (known after apply)
-                          + iqn             = (known after apply)
-                          + iscsi_interface = (known after apply)
-                          + lun             = (known after apply)
-                          + read_only       = (known after apply)
-                          + target_portal   = (known after apply)
-                        }
-
-                      + local {
-                          + path = (known after apply)
-                        }
-
-                      + nfs {
-                          + path      = (known after apply)
-                          + read_only = (known after apply)
-                          + server    = (known after apply)
-                        }
-
-                      + persistent_volume_claim {
-                          + claim_name = (known after apply)
-                          + read_only  = (known after apply)
-                        }
-
-                      + photon_persistent_disk {
-                          + fs_type = (known after apply)
-                          + pd_id   = (known after apply)
-                        }
-
-                      + quobyte {
-                          + group     = (known after apply)
-                          + read_only = (known after apply)
-                          + registry  = (known after apply)
-                          + user      = (known after apply)
-                          + volume    = (known after apply)
-                        }
-
-                      + rbd {
-                          + ceph_monitors = (known after apply)
-                          + fs_type       = (known after apply)
-                          + keyring       = (known after apply)
-                          + rados_user    = (known after apply)
-                          + rbd_image     = (known after apply)
-                          + rbd_pool      = (known after apply)
-                          + read_only     = (known after apply)
-
-                          + secret_ref {
-                              + name = (known after apply)
-                            }
-                        }
-
-                      + secret {
-                          + default_mode = (known after apply)
-                          + optional     = (known after apply)
-                          + secret_name  = (known after apply)
-
-                          + items {
-                              + key  = (known after apply)
-                              + mode = (known after apply)
-                              + path = (known after apply)
-                            }
-                        }
-
+ .....
+ .....
+ .....
+ .....
                       + vsphere_volume {
                           + fs_type     = (known after apply)
                           + volume_path = (known after apply)
@@ -832,56 +396,10 @@ Step 5/8 : RUN pip install --trusted-host pypi.python.org -r requirements.txt
 Collecting Click==7.0 (from -r requirements.txt (line 1))
   Downloading https://files.pythonhosted.org/packages/fa/37/45185cb5abbc30d7257104c434fe0b07e5a195a6847506c074527aa599ec/Click-7.0-py2.py3-none-any.whl (81kB)
 Collecting Flask==1.0.2 (from -r requirements.txt (line 2))
-  Downloading https://files.pythonhosted.org/packages/7f/e7/08578774ed4536d3242b14dacb4696386634607af824ea997202cd0edb4b/Flask-1.0.2-py2.py3-none-any.whl (91kB)
-Collecting Flask-Migrate==2.2.1 (from -r requirements.txt (line 3))
-  Downloading https://files.pythonhosted.org/packages/59/97/f681c9e43d2e2ace4881fa588d847cc25f47cc98f7400e237805d20d6f79/Flask_Migrate-2.2.1-py2.py3-none-any.whl
-Collecting Flask-SQLAlchemy==2.3.2 (from -r requirements.txt (line 4))
-  Downloading https://files.pythonhosted.org/packages/a1/44/294fb7f6bf49cc7224417cd0637018db9fee0729b4fe166e43e2bbb1f1c8/Flask_SQLAlchemy-2.3.2-py2.py3-none-any.whl
-Collecting itsdangerous==0.24 (from -r requirements.txt (line 5))
-  Downloading https://files.pythonhosted.org/packages/dc/b4/a60bcdba945c00f6d608d8975131ab3f25b22f2bcfe1dab221165194b2d4/itsdangerous-0.24.tar.gz (46kB)
-Collecting Jinja2==2.10 (from -r requirements.txt (line 6))
-  Downloading https://files.pythonhosted.org/packages/7f/ff/ae64bacdfc95f27a016a7bed8e8686763ba4d277a78ca76f32659220a731/Jinja2-2.10-py2.py3-none-any.whl (126kB)
-Collecting Mako==1.0.7 (from -r requirements.txt (line 7))
-  Downloading https://files.pythonhosted.org/packages/eb/f3/67579bb486517c0d49547f9697e36582cd19dafb5df9e687ed8e22de57fa/Mako-1.0.7.tar.gz (564kB)
-Collecting MarkupSafe==1.0 (from -r requirements.txt (line 8))
-  Downloading https://files.pythonhosted.org/packages/4d/de/32d741db316d8fdb7680822dd37001ef7a448255de9699ab4bfcbdf4172b/MarkupSafe-1.0.tar.gz
-Collecting psycopg2==2.7.5 (from -r requirements.txt (line 9))
-  Downloading https://files.pythonhosted.org/packages/7c/e6/d5161798a5e8900f24216cb730f2c2be5e4758a80d35c8588306831c0c99/psycopg2-2.7.5-cp27-cp27mu-manylinux1_x86_64.whl (2.7MB)
-Collecting python-dateutil==2.7.3 (from -r requirements.txt (line 10))
-  Downloading https://files.pythonhosted.org/packages/cf/f5/af2b09c957ace60dcfac112b669c45c8c97e32f94aa8b56da4c6d1682825/python_dateutil-2.7.3-py2.py3-none-any.whl (211kB)
-Collecting python-editor==1.0.3 (from -r requirements.txt (line 11))
-  Downloading https://files.pythonhosted.org/packages/65/1e/adf6e000ea5dc909aa420352d6ba37f16434c8a3c2fa030445411a1ed545/python-editor-1.0.3.tar.gz
-Collecting six==1.11.0 (from -r requirements.txt (line 12))
-  Downloading https://files.pythonhosted.org/packages/67/4b/141a581104b1f6397bfa78ac9d43d8ad29a7ca43ea90a2d863fe3056e86a/six-1.11.0-py2.py3-none-any.whl
-Collecting SQLAlchemy==1.2.12 (from -r requirements.txt (line 13))
-  Downloading https://files.pythonhosted.org/packages/25/c9/b0552098cee325425a61efdf380c51b5c721e459081c85bbb860f501c091/SQLAlchemy-1.2.12.tar.gz (5.6MB)
-Collecting Werkzeug==0.14.1 (from -r requirements.txt (line 14))
-  Downloading https://files.pythonhosted.org/packages/20/c4/12e3e56473e52375aa29c4764e70d1b8f3efa6682bef8d0aae04fe335243/Werkzeug-0.14.1-py2.py3-none-any.whl (322kB)
-Collecting alembic>=0.7 (from Flask-Migrate==2.2.1->-r requirements.txt (line 3))
-  Downloading https://files.pythonhosted.org/packages/84/64/493c45119dce700a4b9eeecc436ef9e8835ab67bae6414f040cdc7b58f4b/alembic-1.3.1.tar.gz (1.1MB)
-Building wheels for collected packages: itsdangerous, Mako, MarkupSafe, python-editor, SQLAlchemy, alembic
-  Running setup.py bdist_wheel for itsdangerous: started
-  Running setup.py bdist_wheel for itsdangerous: finished with status 'done'
-  Stored in directory: /root/.cache/pip/wheels/2c/4a/61/5599631c1554768c6290b08c02c72d7317910374ca602ff1e5
-  Running setup.py bdist_wheel for Mako: started
-  Running setup.py bdist_wheel for Mako: finished with status 'done'
-  Stored in directory: /root/.cache/pip/wheels/15/35/25/dbcb848832ccb1a4b4ad23f529badfd3bce9bf88017f7ca510
-  Running setup.py bdist_wheel for MarkupSafe: started
-  Running setup.py bdist_wheel for MarkupSafe: finished with status 'done'
-  Stored in directory: /root/.cache/pip/wheels/33/56/20/ebe49a5c612fffe1c5a632146b16596f9e64676768661e4e46
-  Running setup.py bdist_wheel for python-editor: started
-  Running setup.py bdist_wheel for python-editor: finished with status 'done'
-  Stored in directory: /root/.cache/pip/wheels/36/e0/98/ba386b125a00ea9dd52e2c16aa2ec0adbbd639b84bfe2e001d
-  Running setup.py bdist_wheel for SQLAlchemy: started
-  Running setup.py bdist_wheel for SQLAlchemy: finished with status 'done'
-  Stored in directory: /root/.cache/pip/wheels/ed/bd/2e/d3874a6e97b8cc71e7e177c8d065ead30f67f380c4d9bbadaa
-  Running setup.py bdist_wheel for alembic: started
-  Running setup.py bdist_wheel for alembic: finished with status 'done'
-  Stored in directory: /root/.cache/pip/wheels/b2/d4/19/5ab879d30af7cbc79e6dcc1d421795b1aa9d78f455b0412ef7
-Successfully built itsdangerous Mako MarkupSafe python-editor SQLAlchemy alembic
-Installing collected packages: Click, itsdangerous, MarkupSafe, Jinja2, Werkzeug, Flask, SQLAlchemy, Mako, python-editor, six, python-dateutil, alembic, Flask-SQLAlchemy, Flask-Migrate, psycopg2
-Successfully installed Click-7.0 Flask-1.0.2 Flask-Migrate-2.2.1 Flask-SQLAlchemy-2.3.2 Jinja2-2.10 Mako-1.0.7 MarkupSafe-1.0 SQLAlchemy-1.2.12 Werkzeug-0.14.1 alembic-1.3.1 itsdangerous-0.24 psycopg2-2.7.5 python-dateutil-2.7.3 python-editor-1.0.3 six-1.11.0
-You are using pip version 18.1, however version 19.3.1 is available.
+  Downloading https://files.pythonhosted.org/packages/7f/e7/08578774ed4536d3242b14dacb4696386634607af824ea997202cd0edb4b/Flask-1.0.2-....
+  .....
+  .....
+  .....
 You should consider upgrading via the 'pip install --upgrade pip' command.
 Removing intermediate container 90b0dd3d123c
  ---> 232cac3963ac
@@ -933,49 +451,11 @@ Terraform will perform the following actions:
             uid              = "b274846d-180e-11ea-b2f5-42010a8000e0"
         }
 
-      ~ spec {
-            min_ready_seconds         = 0
-            paused                    = false
-            progress_deadline_seconds = 600
-            replicas                  = 1
-            revision_history_limit    = 10
-
-            selector {
-                match_labels = {
-                    "app" = "front-end"
-                }
-            }
-
-            strategy {
-                type = "RollingUpdate"
-
-                rolling_update {
-                    max_surge       = "25%"
-                    max_unavailable = "25%"
-                }
-            }
-
-          ~ template {
-                metadata {
-                    annotations = {}
-                    generation  = 0
-                    labels      = {
-                        "app" = "front-end"
-                    }
-                }
-
-              ~ spec {
-                    active_deadline_seconds          = 0
-                    automount_service_account_token  = false
-                    dns_policy                       = "ClusterFirst"
-                    host_ipc                         = false
-                    host_network                     = false
-                    host_pid                         = false
-                    node_selector                    = {}
-                    restart_policy                   = "Always"
-                    share_process_namespace          = false
-                    termination_grace_period_seconds = 30
-
+  .....
+  .....
+  .....
+  .....
+  .....
                   ~ container {
                         args                     = []
                         command                  = []
